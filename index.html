@@ -1,0 +1,585 @@
+
+<h2 class="sr-only">微小位移测量技术国内外研究文献综述，涵盖五种主要测量方法</h2>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans)}
+.wrap{padding:1rem 0}
+.page-title{font-size:20px;font-weight:500;color:var(--color-text-primary);margin-bottom:4px}
+.page-sub{font-size:13px;color:var(--color-text-secondary);margin-bottom:1.5rem}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1.5rem}
+.tab{padding:6px 14px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);font-size:13px;cursor:pointer;background:var(--color-background-primary);color:var(--color-text-secondary);transition:all 0.15s}
+.tab.active{background:var(--color-background-info);color:var(--color-text-info);border-color:var(--color-border-info)}
+.overview-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(0,1fr));gap:10px;margin-bottom:1.5rem}
+.ov-card{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:12px;text-align:center}
+.ov-label{font-size:11px;color:var(--color-text-secondary);margin-bottom:4px}
+.ov-val{font-size:18px;font-weight:500;color:var(--color-text-primary)}
+.method-panel{display:none}
+.method-panel.active{display:block}
+.method-header{display:flex;align-items:flex-start;gap:12px;margin-bottom:1rem}
+.method-icon{width:44px;height:44px;border-radius:var(--border-radius-md);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.method-info{flex:1}
+.method-name{font-size:17px;font-weight:500;color:var(--color-text-primary)}
+.method-meta{font-size:12px;color:var(--color-text-secondary);margin-top:3px}
+.badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.badge{font-size:11px;padding:2px 8px;border-radius:99px}
+.b-blue{background:var(--color-background-info);color:var(--color-text-info)}
+.b-green{background:var(--color-background-success);color:var(--color-text-success)}
+.b-amber{background:var(--color-background-warning);color:var(--color-text-warning)}
+.b-red{background:var(--color-background-danger);color:var(--color-text-danger)}
+.section-label{font-size:12px;font-weight:500;color:var(--color-text-secondary);letter-spacing:0.03em;text-transform:uppercase;margin:1rem 0 8px}
+.lit-card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:14px 16px;margin-bottom:10px}
+.lit-top{display:flex;align-items:flex-start;gap:10px;margin-bottom:8px}
+.lit-num{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;flex-shrink:0}
+.lit-meta{flex:1}
+.lit-title{font-size:14px;font-weight:500;color:var(--color-text-primary);line-height:1.4}
+.lit-author{font-size:12px;color:var(--color-text-secondary);margin-top:3px}
+.lit-journal{font-size:12px;color:var(--color-text-info);margin-top:1px}
+.lit-body{font-size:13px;color:var(--color-text-primary);line-height:1.6;padding-left:34px}
+.lit-finding{margin-top:6px;padding:8px 10px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border-left:3px solid var(--color-border-info);font-size:12px;color:var(--color-text-secondary);line-height:1.5}
+.spec-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:1rem}
+.spec-item{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:10px 12px}
+.spec-key{font-size:11px;color:var(--color-text-secondary);margin-bottom:3px}
+.spec-val{font-size:13px;font-weight:500;color:var(--color-text-primary)}
+.prec-bar-wrap{margin-top:1rem}
+.prec-row{display:flex;align-items:center;gap:8px;margin-bottom:7px}
+.prec-name{font-size:12px;color:var(--color-text-secondary);width:90px;flex-shrink:0}
+.prec-bar-bg{flex:1;height:8px;background:var(--color-background-secondary);border-radius:4px;overflow:hidden}
+.prec-bar{height:100%;border-radius:4px}
+.prec-label{font-size:11px;color:var(--color-text-secondary);width:90px;text-align:right;flex-shrink:0}
+</style>
+
+<div class="wrap">
+<div class="page-title">微小位移测量技术文献综述</div>
+<div class="page-sub">五类主流方法 · 精选代表性文献 · 精度范围与应用场景</div>
+
+<div class="overview-grid">
+  <div class="ov-card"><div class="ov-label">覆盖方法</div><div class="ov-val">5 类</div></div>
+  <div class="ov-card"><div class="ov-label">收录文献</div><div class="ov-val">20 篇</div></div>
+  <div class="ov-card"><div class="ov-label">近10年占比</div><div class="ov-val">&gt;85%</div></div>
+  <div class="ov-card"><div class="ov-label">最高精度</div><div class="ov-val">pm级</div></div>
+</div>
+
+<div class="tabs" id="tabs">
+  <div class="tab active" onclick="switchTab(0)">① 电容式</div>
+  <div class="tab" onclick="switchTab(1)">② 激光干涉</div>
+  <div class="tab" onclick="switchTab(2)">③ 电感/涡流</div>
+  <div class="tab" onclick="switchTab(3)">④ 光栅/CCD</div>
+  <div class="tab" onclick="switchTab(4)">⑤ 压电/应变片</div>
+</div>
+
+<!-- ===== 方法1：电容式 ===== -->
+<div class="method-panel active" id="panel0">
+<div class="method-header">
+  <div class="method-icon" style="background:var(--color-background-info)">⚡</div>
+  <div class="method-info">
+    <div class="method-name">电容式测量（平行板电容）</div>
+    <div class="method-meta">基于 C = ε₀εᵣA/d，通过测量电容变化量反推位移</div>
+    <div class="badges">
+      <span class="badge b-blue">精度：亚纳米 ~ 微米</span>
+      <span class="badge b-green">非接触 · 高线性</span>
+      <span class="badge b-amber">短量程（&lt;mm）</span>
+    </div>
+  </div>
+</div>
+
+<div class="section-label">代表性文献</div>
+
+<div class="lit-card">
+  <div class="lit-top">
+    <div class="lit-num" style="background:var(--color-background-info);color:var(--color-text-info)">1</div>
+    <div class="lit-meta">
+      <div class="lit-title">Three-dimensional micro-displacement measurement method based on capacitance-grating sensor</div>
+      <div class="lit-author">Yu J. P. 等（浙江大学）</div>
+      <div class="lit-journal">Measurement, 2021（ScienceDirect）</div>
+    </div>
+  </div>
+  <div class="lit-body">提出基于电容-光栅复合传感器的三维微位移解耦测量方法，通过差动EPCSD结构输出周期三角波信号，实现 X/Y/Z 方向的同步测量与解耦。
+    <div class="lit-finding">核心结论：实验验证三维方向解耦误差均小于 8 μm，全量程测量精度达 1.6%，可在狭小空间内识别位移方向。</div>
+  </div>
+</div>
+
+<div class="lit-card">
+  <div class="lit-top">
+    <div class="lit-num" style="background:var(--color-background-info);color:var(--color-text-info)">2</div>
+    <div class="lit-meta">
+      <div class="lit-title">Absolute capacitive grating displacement measuring system with both high-precision and long-range</div>
+      <div class="lit-author">Zhang D. D.（清华大学）等</div>
+      <div class="lit-journal">Sensors and Actuators A: Physical, 2019</div>
+    </div>
+  </div>
+  <div class="lit-body">提出接触式绝对电容光栅系统，在动尺/定尺接触面镀介电薄膜以消除间隙误差，采用两路正交信号交替切换解决"绝缘区"精度问题，实现绝对编码。
+    <div class="lit-finding">核心结论：量程达百毫米级（目标区III），精度达数十纳米，是国内首个报道的绝对式电容光栅系统。</div>
+  </div>
+</div>
+
+<div class="lit-card">
+  <div class="lit-top">
+    <div class="lit-num" style="background:var(--color-background-info);color:var(--color-text-info)">3</div>
+    <div class="lit-meta">
+      <div class="lit-title">Advances in capacitive, eddy current, and magnetic displacement sensors and corresponding interfaces</div>
+      <div class="lit-author">George B., Tan Z., Nihtianov S.</div>
+      <div class="lit-journal">IEEE Transactions on Industrial Electronics, Vol.64, No.12, 2017</div>
+    </div>
+  </div>
+  <div class="lit-body">系统综述电容、涡流与磁性位移传感器的信号调理接口电路，分析各类传感器非线性、寄生电容与漂移误差来源，对比各类接口电路的分辨率与带宽。
+    <div class="lit-finding">核心结论：护环电容传感器（guard ring）可将边缘效应引起的误差抑制至亚纳米量级；温漂是限制长期稳定性的主要因素。</div>
+  </div>
+</div>
+
+<div class="lit-card">
+  <div class="lit-top">
+    <div class="lit-num" style="background:var(--color-background-info);color:var(--color-text-info)">4</div>
+    <div class="lit-meta">
+      <div class="lit-title">A compact high-precision capacitive absolute angular position sensor based on time grating</div>
+      <div class="lit-author">Pu H. J. 等（重庆理工大学）</div>
+      <div class="lit-journal">IEEE Transactions on Industrial Electronics, Vol.68, No.4, 2020</div>
+    </div>
+  </div>
+  <div class="lit-body">将时间光栅原理引入电容式角位移传感器，通过激励信号时间编码实现绝对角度测量，传感器结构紧凑，抗环境干扰能力强。
+    <div class="lit-finding">核心结论：角度测量精度优于 ±3″，量程360°，分辨率达纳米级角位移，适用于精密转台与工业机器人关节。</div>
+  </div>
+</div>
+
+<div class="lit-card">
+  <div class="lit-top">
+    <div class="lit-num" style="background:var(--color-background-info);color:var(--color-text-info)">5</div>
+    <div class="lit-meta">
+      <div class="lit-title">High-precision displacement sensor in advanced manufacturing: Principle and application</div>
+      <div class="lit-author">Chen M. 等（国防科技大学）</div>
+      <div class="lit-journal">Measurement, 2024（ScienceDirect）</div>
+    </div>
+  </div>
+  <div class="lit-body">全面综述接触与非接触高精度位移传感器，对激光干涉、电容、涡流、光栅等方法从量程、分辨率、精度、适用性四个维度进行对比，给出选型指导。
+    <div class="lit-finding">核心结论：差动电容传感器分辨率可达亚微米；商用产品（如Zeiss、Renishaw）与国产传感器的性能差距正在缩小。</div>
+  </div>
+</div>
+
+<div class="spec-grid">
+  <div class="spec-item"><div class="spec-key">典型精度范围</div><div class="spec-val">0.025 nm ~ 1 μm</div></div>
+  <div class="spec-item"><div class="spec-key">典型量程</div><div class="spec-val">0.01 ~ 5 mm</div></div>
+  <div class="spec-item"><div class="spec-key">主要应用场景</div><div class="spec-val">纳米定位台、AFM、半导体光刻、MEMS测试</div></div>
+  <div class="spec-item"><div class="spec-key">主要限制</div><div class="spec-val">受介质与湿度影响；短量程；寄生电容</div></div>
+</div>
+</div>
+
+<!-- ===== 方法2：激光干涉 ===== -->
+<div class="method-panel" id="panel1">
+<div class="method-header">
+  <div class="method-icon" style="background:var(--color-background-warning)">🔴</div>
+  <div class="method-info">
+    <div class="method-name">激光干涉测量</div>
+    <div class="method-meta">利用激光波长作为基准，通过迈克尔逊/外差干涉测量位移，精度可溯源至"米"定义</div>
+    <div class="badges">
+      <span class="badge b-blue">精度：pm ~ nm</span>
+      <span class="badge b-green">可溯源 · 大量程</span>
+      <span class="badge b-amber">需环境控制</span>
+    </div>
+  </div>
+</div>
+
+<div class="section-label">代表性文献</div>
+
+<div class="lit-card">
+  <div class="lit-top">
+    <div class="lit-num" style="background:var(--color-background-warning);color:var(--color-text-warning)">1</div>
+    <div class="lit-meta">
+      <div class="lit-title">Three-Dimensional Nano-displacement Measurement by Four-Beam Laser Interferometry</div>
+      <div class="lit-author">Zhang X., Wang Z., Liu M. 等</div>
+      <div class="lit-journal">Nanomanufacturing and Metrology, Vol.7, 2024（Springer）</div>
+    </div>
+  </div>
+  <div class="lit-body">提出四光束激光干涉三维纳米位移测量方法。通过角锥棱镜偏移改变四束光的相位差，利用亚像素精度分析干涉条纹格局，再通过相关运算计算三维位移分量。
+    <div class="lit-finding">核心结论：实验结果与理论分析高度吻合，验证了三维纳米级位移的可行性，为精密定位系统提供多维度测量手段。</div>
+  </div>
+</div>
+
+<div class="lit-card">
+  <div class="lit-top">
+    <div class="lit-num" style="background:var(--color-background-warning);color:var(--color-text-warning)">2</div>
+    <div class="lit-meta">
+      <div class="lit-title">Nanometer-scale displacement measurement based on an orthogonal dual Michelson interferometer</div>
+      <div class="lit-author">Li W. 等（中国计量科学研究院）</div>
+      <div class="lit-journal">Optics and Lasers in Engineering / Researching.cn, 2023</div>
+    </div>
+  </div>
+  <div class="lit-body">针对传统单频迈克尔逊干涉仪因测量方向不同导致灵敏度变化的问题，提出正交双干涉仪结构，两路探测器输出相互正交的干涉信号，通过李萨如图分析实现稳定方向判别。
+    <div class="lit-finding">核心结论：系统最小步进达 5 nm，相位变化一致性显著优于单路干涉仪，解决了测量灵敏度随位移变化的固有缺陷。</div>
+  </div>
+</div>
+
+<div class="lit-card">
+  <div class="lit-top">
+    <div class="lit-num" style="background:var(--color-background-warning);color:var(--color-text-warning)">3</div>
+    <div class="lit-meta">
+      <div class="lit-title">Application of contact laser interferometry in precise displacement measurement</div>
+      <div class="lit-author">Sun B., Zheng G., Zhang X.</div>
+      <div class="lit-journal">Measurement, Vol.174, 2021（ScienceDirect）</div>
+    </div>
+  </div>
+  <div class="lit-body">创新性地将FMCW（调频连续波）光纤激光干涉与接触式探头结构相结合，把非接触测量转变为接触测量，突破光学测量对靶面的限制，可测量具有油污复杂表面的工件。
+    <div class="lit-finding">核心结论：接触式激光干涉传感器在生产线场景中具有实用价值，具备抗电磁干扰、高精度、大量程的特性。</div>
+  </div>
+</div>
+
+<div class="lit-card">
+  <div class="lit-top">
+    <div class="lit-num" style="background:var(--color-background-warning);color:var(--color-text-warning)">4</div>
+    <div class="lit-meta">
+      <div class="lit-title">A review of optical interferometry for high-precision length measurement</div>
+      <div class="lit-author">Gao W. 等（东北大学日本）</div>
+      <div class="lit-journal">Photonics, PMC/MDPI, 2025</div>
+    </div>
+  </div>
+  <div class="lit-body">系统综述同调与外差激光干涉测量的原理与进展，对比单频同调（结构简单、低成本）与双频外差（高精度、抗噪）两类系统，涵盖一维至三维多自由度测量方案。
+    <div class="lit-finding">核心结论：外差干涉结合锁相放大可实现皮米级分辨率；光学频率梳技术是未来超精密溯源测量的主流方向之一。</div>
+  </div>
+</div>
+
+<div class="lit-card">
+  <div class="lit-top">
+    <div class="lit-num" style="background:var(--color-background-warning);color:var(--color-text-warning)">5</div>
+    <div class="lit-meta">
+      <div class="lit-title">Precision Nanometrology: Laser Interferometer, Grating Interferometer and Time Grating Sensor</div>
+      <div class="lit-author">Wang H. 等（综合评述）</div>
+      <div class="lit-journal">Applied Sciences / PMC, 2025</div>
+    </div>
+  </div>
+  <div class="lit-body">对激光干涉（LI）、光栅干涉（GI）和时间光栅传感器（TGS）进行横向比较综述，覆盖微米至米量程、0.1 nm至100 nm精度范围，分析各自的误差来源和工程适用性。
+    <div class="lit-finding">核心结论：激光干涉是溯源基准首选；光栅干涉在恶劣环境稳定性更高；时间光栅是将空间位移转化为时域相位的新兴方案，具有强抗扰性。</div>
+  </div>
+</div>
+
+<div class="spec-grid">
+  <div class="spec-item"><div class="spec-key">典型精度范围</div><div class="spec-val">0.01 nm（皮米）~ 100 nm</div></div>
+  <div class="spec-item"><div class="spec-key">典型量程</div><div class="spec-val">mm 至数十米</div></div>
+  <div class="spec-item"><div class="spec-key">主要应用场景</div><div class="spec-val">半导体光刻机、精密机床、引力波探测（LIGO）</div></div>
+  <div class="spec-item"><div class="spec-key">主要限制</div><div class="spec-val">需严格空气折射率补偿；设备昂贵；对振动敏感</div></div>
+</div>
+</div>
+
+<!-- ===== 方法3：电感/涡流 ===== -->
+<div class="method-panel" id="panel2">
+<div class="method-header">
+  <div class="method-icon" style="background:var(--color-background-success)">〜</div>
+  <div class="method-info">
+    <div class="method-name">电感 / 涡流测量</div>
+    <div class="method-meta">交变磁场在导体中激励涡流，通过线圈阻抗变化测量距离；适合恶劣工业环境</div>
+    <div class="badges">
+      <span class="badge b-blue">精度：nm ~ μm</span>
+      <span class="badge b-green">抗油污 · 高带宽</span>
+      <span class="badge b-red">仅导体靶材</span>
+    </div>
+  </div>
+</div>
+
+<div class="section-label">代表性文献</div>
+
+<div class="lit-card">
+  <div class="lit-top">
+    <div class="lit-num" style="background:var(--color-background-success);color:var(--color-text-success)">1</div>
+    <div class="lit-meta">
+      <div class="lit-title">Single-Ended Eddy Current Micro-Displacement Sensor with High Precision Based on Temperature Compensation</div>
+      <div class="lit-author">Xu Z. P., Feng Y. T. 等（中国科学院苏州生物医学工程技术研究所）</div>
+      <div class="lit-journal">Micromachines, Vol.15, No.3, 2024（MDPI）</div>
+    </div>
+  </div>
+  <div class="lit-body">研究基于温度补偿的单端涡流微位移传感器，将探头输出信号转换为不同宽度的脉冲，送入数字相位判别器，利用内嵌温度传感器的数字电位计进行温漂主动补偿。
+    <div class="lit-finding">核心结论：量程 500 μm，分辨率达 46 nm，重复性误差 ±0.70% FR；温度补偿后电压波动从 586 mV 降至 44 mV（+2°C～+58°C 范围）。</div>
+  </div>
+</div>
+
+<div class="lit-card">
+  <div class="lit-top">
+    <div class="lit-num" style="background:var(--color-background-success);color:var(--color-text-success)">2</div>
+    <div class="lit-meta">
+      <div class="lit-title">Wide Temperature Range and Low Temperature Drift Eddy Current Displacement Sensor Using Digital Correlation Demodulation</div>
+      <div class="lit-author">Li X. 等（中国科学院长春光学精密机械与物理研究所）</div>
+      <div class="lit-journal">Sensors, Vol.23, 2023（MDPI）</div>
+    </div>
+  </div>
+  <div class="lit-body">设计差动数字相关解调涡流传感器系统。差动探头消除共模温度干扰，高速ADC数字化差动载波信号后，在FPGA中实施双相关解调算法提取幅值信息。
+    <div class="lit-finding">核心结论：量程 ±2.5 mm，非线性 0.68%，分辨率 760 nm，带宽 25 kHz；温漂相较于模拟解调方法大幅降低，适合航天快速反射镜角度测量场景。</div>
+  </div>
+</div>
+
+<div class="lit-card">
+  <div class="lit-top">
+    <div class="lit-num" style="background:var(--color-background-success);color:var(--color-text-success)">3</div>
+    <div class="lit-meta">
+      <div class="lit-title">Advances in high-precision displacement and thickness measurement based on eddy current sensors: A review</div>
+      <div class="lit-author">Chen L. 等</div>
+      <div class="lit-journal">Measurement, 2024（ScienceDirect）</div>
+    </div>
+  </div>
+  <div class="lit-body">从基本结构与工作原理出发，综述电容式（ECD）与厚度（ECT）涡流传感器的分析模型与等效电路，梳理线圈结构优化、信号处理电路与温补技术的研究进展，分析升离效应抑制等实际应用挑战。
+    <div class="lit-finding">核心结论：膜厚测量已实现 2.1 nm 精度（量程 24~2095 nm）；高端EUV光刻机双工件台精密定位是涡流传感器最前沿的应用之一。</div>
+  </div>
+</div>
+
+<div class="lit-card">
+  <div class="lit-top">
+    <div class="lit-num" style="background:var(--color-background-success);color:var(--color-text-success)">4</div>
+    <div class="lit-meta">
+      <div class="lit-title">Design and analysis of an eddy current displacement sensor with extended linear range</div>
+      <div class="lit-author">Ma K. 等</div>
+      <div class="lit-journal">Sensors and Actuators A: Physical, 2024</div>
+    </div>
+  </div>
+  <div class="lit-body">通过系统的有限元仿真与电路设计对涡流传感器线圈绕组结构进行优化，以扩展线性测量范围，同时维持高灵敏度与低温漂，适应多种工业现场应用。
+    <div class="lit-finding">核心结论：优化后传感器线性范围显著拓展，综合尺寸小型化，在不牺牲精度的前提下实现紧凑化设计。</div>
+  </div>
+</div>
+
+<div class="lit-card">
+  <div class="lit-top">
+    <div class="lit-num" style="background:var(--color-background-success);color:var(--color-text-success)">5</div>
+    <div class="lit-meta">
+      <div class="lit-title">Two-dimensional plane displacement measurement based on eddy current sensor</div>
+      <div class="lit-author">Ma K., Yang Q. 等</div>
+      <div class="lit-journal">IEEE Sensors Journal, 2022</div>
+    </div>
+  </div>
+  <div class="lit-body">提出基于涡流传感器的二维平面位移测量方法，在导体靶面刻制不同宽度和深度的沟槽阵列，通过单一传感器同时解算 X/Y 方向位移分量。
+    <div class="lit-finding">核心结论：单探头实现二维编码，抗污染能力强，适合高速运动平台和航空液压作动器的位置反馈。</div>
+  </div>
+</div>
+
+<div class="spec-grid">
+  <div class="spec-item"><div class="spec-key">典型精度范围</div><div class="spec-val">46 nm ~ 1 μm（亚微米可达）</div></div>
+  <div class="spec-item"><div class="spec-key">典型量程</div><div class="spec-val">0.1 ~ 10 mm</div></div>
+  <div class="spec-item"><div class="spec-key">主要应用场景</div><div class="spec-val">机床主轴振动、涡轮叶片间隙、液压轴承油膜厚度</div></div>
+  <div class="spec-item"><div class="spec-key">主要限制</div><div class="spec-val">仅适用于导体靶；温漂影响精度；存在升离效应</div></div>
+</div>
+</div>
+
+<!-- ===== 方法4：光栅/CCD ===== -->
+<div class="method-panel" id="panel3">
+<div class="method-header">
+  <div class="method-icon" style="background:#EAF3DE">🔲</div>
+  <div class="method-info">
+    <div class="method-name">光学测量（光栅 / CCD）</div>
+    <div class="method-meta">利用光栅衍射干涉莫尔条纹或图像处理方法解算位移，环境稳定性优于激光干涉</div>
+    <div class="badges">
+      <span class="badge b-blue">精度：nm ~ 亚微米</span>
+      <span class="badge b-green">环境鲁棒性高</span>
+      <span class="badge b-amber">量程受光栅尺限制</span>
+    </div>
+  </div>
+</div>
+
+<div class="section-label">代表性文献</div>
+
+<div class="lit-card">
+  <div class="lit-top">
+    <div class="lit-num" style="background:#EAF3DE;color:#3B6D11">1</div>
+    <div class="lit-meta">
+      <div class="lit-title">Novel nano-scale absolute linear displacement measurement based on grating projection imaging</div>
+      <div class="lit-author">Lin Z. 等（哈尔滨工业大学）</div>
+      <div class="lit-journal">Measurement, 2021（ScienceDirect）</div>
+    </div>
+  </div>
+  <div class="lit-body">建立基于光栅投影成像的无镜头线性位移测量系统，采用 M 序列伪随机编码实现绝对光栅编码，结合数字图像识别算法进行细分，构建量程250 mm的实验装置。
+    <div class="lit-finding">核心结论：分辨率 1 nm，测量精度 1.76 μm（量程250 mm），无需复杂放大光学系统，体积紧凑，为高精度数控技术提供新方案。</div>
+  </div>
+</div>
+
+<div class="lit-card">
+  <div class="lit-top">
+    <div class="lit-num" style="background:#EAF3DE;color:#3B6D11">2</div>
+    <div class="lit-meta">
+      <div class="lit-title">A novel peak positioning method for nanometer displacement measurement by optical linear encoder</div>
+      <div class="lit-author">Wang X., Jiang W. 等</div>
+      <div class="lit-journal">Measurement, 2024（ScienceDirect）</div>
+    </div>
+  </div>
+  <div class="lit-body">针对光栅图像峰值定位精度不足问题，提出局部梯度插值算法优化峰值拟合，以脉冲计数方式实现大范围连续位移，无需复杂编码系统，避免了莫尔条纹方法的缺陷。
+    <div class="lit-finding">核心结论：使用 20 μm 周期光栅，量程 50 mm，分辨率 2 nm，精度 ±0.1 μm；相比传统线插值法，定位误差显著降低。</div>
+  </div>
+</div>
+
+<div class="lit-card">
+  <div class="lit-top">
+    <div class="lit-num" style="background:#EAF3DE;color:#3B6D11">3</div>
+    <div class="lit-meta">
+      <div class="lit-title">Nanometer-scale displacement measurement using a simple diffraction grating with a quadrature detection technique</div>
+      <div class="lit-author">Chheng M. 等</div>
+      <div class="lit-journal">Optics Letters, Vol.47, No.19, 2022（Optica）</div>
+    </div>
+  </div>
+  <div class="lit-body">提出将透明光栅插入光源与反射镜之间的相敏干涉仪方案，两探测器分置于干涉条纹的正交相位位置，通过相位变化直接推算反射镜位移。
+    <div class="lit-finding">核心结论：装置极简，测量精度 98.2%，标准差 10 nm，最低分辨率 0.4 nm；结构紧凑，具有高稳定性，优于传统衍射干涉光栅编码器。</div>
+  </div>
+</div>
+
+<div class="lit-card">
+  <div class="lit-top">
+    <div class="lit-num" style="background:#EAF3DE;color:#3B6D11">4</div>
+    <div class="lit-meta">
+      <div class="lit-title">Laser Interference Lithography for Diffraction Gratings and Their Applications in Encoders and Spectrometers</div>
+      <div class="lit-author">Wang W. 等（综合评述）</div>
+      <div class="lit-journal">Photonics, Vol.11, 2024（MDPI/PMC）</div>
+    </div>
+  </div>
+  <div class="lit-body">系统综述激光干涉光刻制备衍射光栅的方法（劳埃德镜、双光束、扫描曝光），重点介绍基于遗传算法的二进制绝对编码设计，以及双探头同时读取增量和参考信号的高精度线性编码器。
+    <div class="lit-finding">核心结论：双探头系统可同时提供增量（15 nm分辨率）和绝对位置信号；GA优化编码使纳米级绝对定位精度成为可能。</div>
+  </div>
+</div>
+
+<div class="lit-card">
+  <div class="lit-top">
+    <div class="lit-num" style="background:#EAF3DE;color:#3B6D11">5</div>
+    <div class="lit-meta">
+      <div class="lit-title">Micro-Opto-Electro-Mechanical Systems for High-Precision Displacement Sensing: A Review</div>
+      <div class="lit-author">Li M. 等</div>
+      <div class="lit-journal">Sensors, PMC/MDPI, 2024</div>
+    </div>
+  </div>
+  <div class="lit-body">综述基于MOEMS的高精度位移传感技术，涵盖光子晶体、光栅、法布里-珀罗腔等结构，重点评述双层光栅Talbot效应位移传感（4 μm光栅周期）及石墨烯光子晶体折叠调制方案。
+    <div class="lit-finding">核心结论：双层光栅MOEMS加速度计面内灵敏度 0.02%/nm；石墨烯调制方案光学灵敏度 ~4.42 nm/nm（双模式），为芯片级集成传感开辟新方向。</div>
+  </div>
+</div>
+
+<div class="spec-grid">
+  <div class="spec-item"><div class="spec-key">典型精度范围</div><div class="spec-val">0.4 nm ~ 亚微米（分辨率1 nm可达）</div></div>
+  <div class="spec-item"><div class="spec-key">典型量程</div><div class="spec-val">几十 mm 至数百 mm</div></div>
+  <div class="spec-item"><div class="spec-key">主要应用场景</div><div class="spec-val">精密数控机床、半导体掩模对准、精密仪器</div></div>
+  <div class="spec-item"><div class="spec-key">主要限制</div><div class="spec-val">受光栅制造精度限制；光学路径需精心对准</div></div>
+</div>
+</div>
+
+<!-- ===== 方法5：压电/应变片 ===== -->
+<div class="method-panel" id="panel4">
+<div class="method-header">
+  <div class="method-icon" style="background:#FBEAF0">🔷</div>
+  <div class="method-info">
+    <div class="method-name">压电与应变片测量</div>
+    <div class="method-meta">通过机械变形-电信号转换（正/逆压电效应或电阻变化）实现接触式微位移与微力感知</div>
+    <div class="badges">
+      <span class="badge b-blue">精度：μm ~ 亚微米</span>
+      <span class="badge b-green">自感知 · 结构集成</span>
+      <span class="badge b-amber">接触式 · 温漂影响</span>
+    </div>
+  </div>
+</div>
+
+<div class="section-label">代表性文献</div>
+
+<div class="lit-card">
+  <div class="lit-top">
+    <div class="lit-num" style="background:#FBEAF0;color:#993556">1</div>
+    <div class="lit-meta">
+      <div class="lit-title">Piezoelectric benders with strain sensing electrodes: Sensor design for position control and force estimation</div>
+      <div class="lit-author">Yong Y. K. 等（澳大利亚纽卡斯尔大学）</div>
+      <div class="lit-journal">Sensors and Actuators A: Physical, Vol.333, 2022</div>
+    </div>
+  </div>
+  <div class="lit-body">通过化学刻蚀或激光消融在压电弯曲片外层电极上集成电阻应变片，建立应变与尖端位移的精确动力学模型，设计位移控制器，同时实现接触力估计。
+    <div class="lit-finding">核心结论：集成应变片将开环定位精度（约20% FS误差）大幅提升至闭环毫米级精度；适用于微型夹持器、气动比例阀、针式执行器等场景。</div>
+  </div>
+</div>
+
+<div class="lit-card">
+  <div class="lit-top">
+    <div class="lit-num" style="background:#FBEAF0;color:#993556">2</div>
+    <div class="lit-meta">
+      <div class="lit-title">Three-dimensional micro strain gauges as flexible, modular tactile sensors for versatile integration</div>
+      <div class="lit-author">Hu M., Xu C. 等（北京大学）</div>
+      <div class="lit-journal">Science Advances, Vol.10, 2024</div>
+    </div>
+  </div>
+  <div class="lit-body">通过微纳加工制备三维微应变片阵列，实现三轴力传感，以柔性形态兼容微纳电子（μm级集成）与宏观电子（mm级），具备模块化扩展能力，适配机器人触觉皮肤场景。
+    <div class="lit-finding">核心结论：三维应变片阵列可测三轴力，集成度高，已在柔性手套等场景验证；申请中国发明专利（202311582071.2）。</div>
+  </div>
+</div>
+
+<div class="lit-card">
+  <div class="lit-top">
+    <div class="lit-num" style="background:#FBEAF0;color:#993556">3</div>
+    <div class="lit-meta">
+      <div class="lit-title">Piezoresistive sensor for micro- and nanoscale displacement measurement in MEMS</div>
+      <div class="lit-author">综述条目（ScienceDirect Topics）</div>
+      <div class="lit-journal">ScienceDirect Topics / Sensors and Actuators，综述引用2022</div>
+    </div>
+  </div>
+  <div class="lit-body">综述压阻式传感器（半导体应变片）在MEMS微纳位移测量中的应用，分析多晶硅压阻器在六轴纳米定位平台上的集成方案，讨论约翰逊噪声、闪烁噪声与放大器噪声对分辨率下限的影响。
+    <div class="lit-finding">核心结论：MEMS压阻位移传感器适合微纳尺度六轴位移集成检测，噪声建模可指导最优惠斯通电桥设计，分辨率可优于百纳米。</div>
+  </div>
+</div>
+
+<div class="lit-card">
+  <div class="lit-top">
+    <div class="lit-num" style="background:#FBEAF0;color:#993556">4</div>
+    <div class="lit-meta">
+      <div class="lit-title">New high efficiency bending strain sensor based on piezoelectric stacks</div>
+      <div class="lit-author">Soloviev A. N. 等</div>
+      <div class="lit-journal">ResearchGate / Structural Mechanics, 2020</div>
+    </div>
+  </div>
+  <div class="lit-body">将多层PZT叠堆替代传统单片压电元件构建弯曲应变传感器，利用均匀化方法计算叠堆有效模量，建立精确数学模型。叠堆将测量信号幅值与稳定性大幅提升。
+    <div class="lit-finding">核心结论：叠堆传感器效率系数接近 k₃₃ ≈ 0.60~0.70（传统单片约 k₃₁ ≈ 0.30~0.35），信号幅值提升数百倍，有利于建筑结构安全监测。</div>
+  </div>
+</div>
+
+<div class="lit-card">
+  <div class="lit-top">
+    <div class="lit-num" style="background:#FBEAF0;color:#993556">5</div>
+    <div class="lit-meta">
+      <div class="lit-title">Capacitance Probes vs. Strain Gauges in Piezo Flexure Stages</div>
+      <div class="lit-author">PI GmbH / Vitrek 综合技术报告</div>
+      <div class="lit-journal">Sensors & Actuators Technical Report（Industry），2022–2023</div>
+    </div>
+  </div>
+  <div class="lit-body">系统对比压电柔性平台中电容探头与应变片两类位移反馈传感器。电容探头直接测量绝对距离（非接触）；应变片测量弹性体形变并间接推算位移，线性度较差。
+    <div class="lit-finding">核心结论：电容反馈精度优于应变片（可达亚纳米）；应变片成本低、可嵌入但线性度受限；高精度封闭回路压电平台应优先使用电容反馈。</div>
+  </div>
+</div>
+
+<div class="spec-grid">
+  <div class="spec-item"><div class="spec-key">典型精度范围</div><div class="spec-val">100 nm ~ 数 μm（亚微米可达）</div></div>
+  <div class="spec-item"><div class="spec-key">典型量程</div><div class="spec-val">几 μm 至数十 mm</div></div>
+  <div class="spec-item"><div class="spec-key">主要应用场景</div><div class="spec-val">压电平台闭环控制、MEMS制造、触觉传感、结构健康监测</div></div>
+  <div class="spec-item"><div class="spec-key">主要限制</div><div class="spec-val">接触式；压电存在迟滞；应变片长期蠕变；温漂需补偿</div></div>
+</div>
+</div>
+
+<!-- 精度对比条形图 -->
+<div style="margin-top:2rem;padding-top:1.5rem;border-top:0.5px solid var(--color-border-tertiary)">
+<div class="section-label">五类方法精度层级对比（对数尺度参考）</div>
+<div class="prec-bar-wrap">
+  <div class="prec-row">
+    <div class="prec-name">激光干涉</div>
+    <div class="prec-bar-bg"><div class="prec-bar" style="width:100%;background:#378ADD"></div></div>
+    <div class="prec-label">pm ~ 100 nm</div>
+  </div>
+  <div class="prec-row">
+    <div class="prec-name">光栅/CCD</div>
+    <div class="prec-bar-bg"><div class="prec-bar" style="width:88%;background:#1D9E75"></div></div>
+    <div class="prec-label">0.4 nm ~ μm</div>
+  </div>
+  <div class="prec-row">
+    <div class="prec-name">电容式</div>
+    <div class="prec-bar-bg"><div class="prec-bar" style="width:82%;background:#534AB7"></div></div>
+    <div class="prec-label">25 pm ~ 1 μm</div>
+  </div>
+  <div class="prec-row">
+    <div class="prec-name">电感/涡流</div>
+    <div class="prec-bar-bg"><div class="prec-bar" style="width:65%;background:#3B6D11"></div></div>
+    <div class="prec-label">46 nm ~ μm</div>
+  </div>
+  <div class="prec-row">
+    <div class="prec-name">压电/应变片</div>
+    <div class="prec-bar-bg"><div class="prec-bar" style="width:52%;background:#993556"></div></div>
+    <div class="prec-label">100 nm ~ μm</div>
+  </div>
+</div>
+</div>
+
+</div>
+
+<script>
+function switchTab(idx){
+  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',i===idx));
+  document.querySelectorAll('.method-panel').forEach((p,i)=>p.classList.toggle('active',i===idx));
+}
+</script>
